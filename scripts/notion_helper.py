@@ -42,8 +42,8 @@ class NotionHelper:
     }
     database_id_dict = {}
     image_dict = {}
-    def __init__(self,page_url):
-        self.client = Client(auth=os.getenv("NOTION_TOKEN"), log_level=logging.ERROR)
+    def __init__(self,notion_token,page_url):
+        self.client = Client(auth=notion_token, log_level=logging.ERROR)
         self.__cache = {}
         self.page_id = self.extract_page_id(page_url)
         self.search_database(self.page_id)

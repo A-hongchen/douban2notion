@@ -240,7 +240,13 @@ if __name__ == "__main__":
     type = options.type
     is_movie = True if type=="movie" else False
     notion_url = os.getenv("NOTION_MOVIE_URL") if is_movie else os.getenv("NOTION_BOOK_URL")
-    notion_helper = NotionHelper(notion_url)
+    notion_token = os.getenv("NOTION_TOKEN")
+    if not notion_token:
+        if is_movie:
+            notion_token = os.getenv("MOVIE_NOTION_TOKEN")
+        else:
+            notion_token = os.getenv("BOOK_NOTION_TOKEN")
+    notion_helper = NotionHelper(notion_token,notion_url)
     douban_name = os.getenv("DOUBAN_NAME", None)
     if is_movie:
         insert_movie()
